@@ -1,9 +1,8 @@
 package com.michaelyogar.shortly;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 public class ShortlyServiceImpl implements ShortlyService {
@@ -32,5 +31,12 @@ public class ShortlyServiceImpl implements ShortlyService {
     public String getLongUrl(String shortUrl) {
         int decoded = Base36.decode(shortUrl);
         return repository.findByShortUrl(String.valueOf(decoded)).getLongUrl();
+    }
+
+    @Override
+    @Transactional
+    public int deleteExpiredLinks(int minute) {
+        repository.deleteExpiredLinks(minute);
+        return 1;
     }
 }

@@ -1,7 +1,9 @@
 package com.michaelyogar.shortly;
 
 public interface ShortlyService {
-    public ShortlyUrl addShortlyUrl(String url);
+    ShortlyUrl addShortlyUrl(String url);
 
     String getLongUrl(String shortUrl);
+
+    int deleteExpiredLinks(int minute);
 }
