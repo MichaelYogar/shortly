@@ -26,6 +26,6 @@ public class DeleteOldUrlsJob {
     @Scheduled(initialDelay = 20 * 1000, fixedRate = 60 * 1000)
     public void reportCurrentTime() {
         log.info("The time is now {}", dateFormat.format(new Date()));
-        service.deleteExpiredLinks(5);
+        service.deleteExpiredLinks();
     }
 }

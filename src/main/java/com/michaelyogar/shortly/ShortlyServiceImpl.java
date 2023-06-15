@@ -14,14 +14,16 @@ public class ShortlyServiceImpl implements ShortlyService {
     }
 
     @Override
-    public ShortlyUrl addShortlyUrl(String url) {
+    public ShortlyUrl addShortlyUrl(String url, long seconds) {
         ShortlyUrl shortlyUrl = new ShortlyUrl();
+
         shortlyUrl.setLongUrl(url);
+        if (seconds > 0)
+            shortlyUrl.setDuration(seconds);
 
         shortlyUrl = repository.save(shortlyUrl);
 
         String shortUrl = Base36.encode((int) shortlyUrl.getId());
-
         shortlyUrl.setShortUrl(shortUrl);
 
         return repository.save(shortlyUrl);
@@ -35,8 +37,7 @@ public class ShortlyServiceImpl implements ShortlyService {
 
     @Override
     @Transactional
-    public int deleteExpiredLinks(int minute) {
-        repository.deleteExpiredLinks(minute);
-        return 1;
+    public int deleteExpiredLinks() {
+        return repository.deleteExpiredLinks();
     }
 }

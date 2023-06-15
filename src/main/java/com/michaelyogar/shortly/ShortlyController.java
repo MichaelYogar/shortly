@@ -22,7 +22,9 @@ public class ShortlyController {
     }
 
     @PostMapping("/url")
-    ShortlyUrl createUrl(@RequestBody UrlDto urlDto) {
-        return service.addShortlyUrl(urlDto.getUrl());
+    ShortlyUrl createUrl(@RequestParam("url") String url, @RequestParam(value = "seconds", required = false) Long seconds) {
+        long s = (seconds != null) ? seconds : -1;
+        return service.addShortlyUrl(url, s);
     }
 }
+

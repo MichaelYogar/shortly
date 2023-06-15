@@ -20,6 +20,9 @@ public class ShortlyUrl {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @Column(nullable = false)
+    private long duration;
+
     public long getId() {
         return id;
     }
@@ -46,6 +49,14 @@ public class ShortlyUrl {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     @PrePersist
